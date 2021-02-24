@@ -1,11 +1,9 @@
 # @version ^0.2.8
 """
-@title StableSwap
+@title Curve TUSD Metapool
 @author Curve.Fi
-@license Copyright (c) Curve.Fi, 2020 - all rights reserved
-@notice Metapool implementation
-@dev This contract is only a template, pool-specific constants
-     must be set prior to compiling
+@license Copyright (c) Curve.Fi, 2021 - all rights reserved
+@dev Utilizes 3Pool to allow swaps between TUSD / DAI / USDC / USDT
 """
 
 from vyper.interfaces import ERC20
@@ -96,15 +94,14 @@ event StopRampA:
     t: uint256
 
 
-# These constants must be set prior to compiling
-N_COINS: constant(int128) = ___N_COINS___
+N_COINS: constant(int128) = 2
 MAX_COIN: constant(int128) = N_COINS - 1
 
 FEE_DENOMINATOR: constant(uint256) = 10 ** 10
 PRECISION: constant(uint256) = 10 ** 18  # The precision to convert to
-PRECISION_MUL: constant(uint256[N_COINS]) = ___PRECISION_MUL___
-RATES: constant(uint256[N_COINS]) = ___RATES___
-BASE_N_COINS: constant(int128) = ___BASE_N_COINS___
+PRECISION_MUL: constant(uint256[N_COINS]) = [1, 1]
+RATES: constant(uint256[N_COINS]) = [1000000000000000000, 1000000000000000000]
+BASE_N_COINS: constant(int128) = 3
 
 # An asset which may have a transfer fee (USDT)
 FEE_ASSET: constant(address) = 0xdAC17F958D2ee523a2206206994597C13D831ec7
