@@ -1,11 +1,9 @@
 # @version ^0.2.8
 """
-@title "Zap" Depositer for metapool
+@title "Zap" Depositer for Curve TUSD pool
 @author Curve.Fi
-@license Copyright (c) Curve.Fi, 2020 - all rights reserved
+@license Copyright (c) Curve.Fi, 2021 - all rights reserved
 @notice deposit/withdraw to Curve pool without too many transactions
-@dev This contract is only a template, pool-specific constants
-     must be set prior to compiling
 """
 
 from vyper.interfaces import ERC20
@@ -32,9 +30,9 @@ interface CurveBase:
     def fee() -> uint256: view
 
 
-N_COINS: constant(int128) = ___N_COINS___
+N_COINS: constant(int128) = 2
 MAX_COIN: constant(int128) = N_COINS-1
-BASE_N_COINS: constant(int128) = ___BASE_N_COINS___
+BASE_N_COINS: constant(int128) = 3
 N_ALL_COINS: constant(int128) = N_COINS + BASE_N_COINS - 1
 
 # An asset which may have a transfer fee (USDT)
@@ -185,7 +183,7 @@ def remove_liquidity(_amount: uint256, _min_amounts: uint256[N_ALL_COINS]) -> ui
     # Withdraw from base
     _base_amount: uint256 = ERC20(self.coins[MAX_COIN]).balanceOf(self)
     for i in range(BASE_N_COINS):
-        min_amounts_base[i] = _min_amounts[MAX_COIN+i]
+        min_amounts_base[i] = _min_amounts[MAX_COIN + i]
     CurveBase(self.base_pool).remove_liquidity(_base_amount, min_amounts_base)
 
     # Transfer all coins out
