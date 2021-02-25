@@ -1,6 +1,6 @@
 {
     "base_pool": "3pool",
-    "lp_contract": "CurveTokenV2",
+    "lp_contract": "CurveTokenV3",
     "swap_address": "",
     "lp_token_address": "",
     "zap_address": "",
